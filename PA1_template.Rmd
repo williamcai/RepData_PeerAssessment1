@@ -1,5 +1,5 @@
 # Reproducible Research: Peer Assessment 1
-# set locale : English
+## set locale : English
 ```{r}
 Sys.setlocale("LC_TIME","English")
 ```
@@ -24,16 +24,14 @@ hist(x,main="Histogram of the total number of steps per day",
 # Calculate and report the mean and median total number of steps taken per day
 s_mean <- cbind(tapply(data$steps,data$date,mean,na.rm=TRUE))
 colnames(s_mean) <- c("steps")
-#s1_mean <- mean(s_mean,na.rm = TRUE)
-#s1_mean
-s_mean
+s1_mean <- mean(s_mean,na.rm = TRUE)
 
 s_median <- cbind(tapply(data$steps,data$date,median,na.rm=TRUE))
 colnames(s_median) <- c("steps")
-#s1_median <- median(s_median,na.rm = TRUE)
-#s1_median
-s_median
+s1_median <- median(s_median,na.rm = TRUE)
 ```
+The mean and median of total number of steps taken per day are `r s1_mean` and `r s1_median` respectively.
+
 ## What is the average daily activity pattern?
 ```{r plot, fig.width=10}
 #  Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) 
@@ -52,7 +50,7 @@ names <- rownames(s_interval)
 In `r names[which.max(s_interval)]` interval, on average across all the days in 
 the dataset, contains the maximun number of steps, which is `r max(s_interval)` steps.
 
-## Inputing missing values
+## Imputing missing values
 ```{r histogram_02}
 # Calculate and report the total number of missing values in the dataset (i.e. 
 # the total number of rows with NAs)
@@ -88,12 +86,17 @@ hist(tapply(data2$steps,data2$date,sum),
 
 s_mean2 <- cbind(tapply(data2$steps,data2$date,mean))
 colnames(s_mean2) <- c("steps")
-s_mean2
+s1_mean2 <- mean(s_mean2,na.rm = TRUE)
+#s_mean2
 
 s_median2 <- cbind(tapply(data2$steps,data2$date,median))
 colnames(s_median2) <- c("steps")
-s_median2
+s1_median2 <- median(s_median2,na.rm = TRUE)
 
+```
+The mean and median of total number of steps taken per day are `r s1_mean2` and `r s1_median2` respectively.
+
+```{r histogram_03}
 s_interval <- cbind(tapply(data$steps,data$interval,mean,na.rm=TRUE))
 l <- cbind(unique(data$interval),s_interval)
 s_interval2 <- cbind(tapply(data2$steps,data2$interval,mean,na.rm=TRUE))
